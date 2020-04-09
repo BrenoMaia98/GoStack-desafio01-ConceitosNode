@@ -76,7 +76,7 @@ const portifolioController = {
     return response.status(200).json(modifiedRepo);
   },
 
-  delete(request, response) {
+  deleteRepo(request, response) {
     const { id } = request.params;
 
     if (!isUuid(id)) {
@@ -132,4 +132,4 @@ const portifolioController = {
 
 }
 
-module.exports = {portifolioController,repositories}
+module.exports = portifolioController

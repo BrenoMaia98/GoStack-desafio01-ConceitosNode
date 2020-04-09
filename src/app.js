@@ -1,9 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const { middlewareLogger, index } = require("./middleware/logger");
-const {portifolioController } = require("./controller/portifolioController");
-// const {loadPortifolio,savePortifolio } = require("./controller/fakeDatabase");
 
+const { middlewareLogger, index : returnLogs } = require("./middleware/logger");
+const { 
+  loadPortifolio, 
+  savePortifolio, 
+  index, 
+  create, 
+  edit, 
+  deleteRepo, 
+  like 
+} = require("./controller/portifolioController");
 
 
 const app = express();
@@ -16,17 +23,17 @@ app.use(cors());
 app.use(middlewareLogger);
 
 
-app.get("/portifolio", portifolioController.loadPortifolio);
-app.post("/portifolio", portifolioController.savePortifolio);
+app.get("/portifolio", loadPortifolio);
+app.post("/portifolio", savePortifolio);
 
-app.get("/repositories", portifolioController.index);
-app.post("/repositories", portifolioController.create);
-app.put("/repositories/:id", portifolioController.edit);
-app.delete("/repositories/:id", portifolioController.delete);
+app.get("/repositories", index);
+app.post("/repositories", create);
+app.put("/repositories/:id", edit);
+app.delete("/repositories/:id", deleteRepo);
 
-app.post("/repositories/:id/like", portifolioController.like);
+app.post("/repositories/:id/like", like);
 
 
-app.get("/log", index);
+app.get("/log", returnLogs);
 
 module.exports = app;
