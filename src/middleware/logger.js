@@ -19,7 +19,7 @@ const Logger = {
     });
   },
 
-  returnLog: (req, resp, next) =>{
+  index: (req, resp, next) =>{
     return resp.status(200).json(logArray)
   }  
 }
