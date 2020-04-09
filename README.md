@@ -9,17 +9,24 @@
 
 ## Bibliotecas utilizadas
  - [Uuidv4](https://github.com/thenativeweb/uuidv4)
+ - [fs (File System, node.js)](https://nodejs.org/api/fs.html)
  
 ## Especificações
   Uma aplicação que terá como foco o armazenamento de repositórios de um portifólio, para tal foram utilizados os conceitos básicos de node.js.
   
-  ### Operações implementadas (repositórios)
+  ### Operações obrigatórias do desafio (repositórios)
    - Criação
    - Listagem
    - Atualização
    - Remoção
    - Funcionalidade "like"
     
+  ### Operações adicionais implementadas
+  
+  - Salvar estado do portifólio no servidor
+  - Carregar estado salvo do potifólio
+  - Busca pelo título do repositórios 
+  - Log de execução (servidor)
 ---
 
 ### :wave: Contato: 
