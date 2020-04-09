@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { middlewareLogger, returnLog } = require("./middleware/logger");
-const { uuid } = require("uuidv4");
+const { uuid, isUuid } = require("uuidv4");
 
 const app = express();
 
@@ -28,9 +28,10 @@ app.post("/repositories", (request, response) => {
   let errors = []
   let newRepo = {
     id: '',
-    title,
     url,
+    title,
     techs,
+    likes: 0,
   }
 
   if (!newRepo.title)
@@ -52,19 +53,69 @@ app.post("/repositories", (request, response) => {
   }
 
   newRepo.id = uuid();
+  repositories.push(newRepo)
   return response.status(200).json(newRepo);
 });
 
 app.put("/repositories/:id", (request, response) => {
-  // TODO
+  const { title, url, techs } = request.body;
+  const { id } = request.params;
+
+  if (!isUuid(id)) {
+    return response.status(400).json({ error: `Requested id is not a valid id!` });
+  }
+
+  const repositoryIndex = repositories.findIndex(repo => repo.id === id);
+
+  if (repositoryIndex < 0) {
+    return response.status(400).json({ error: `There is no repository with id : ${id}` });
+  }
+  const modifiedRepo = {
+    id,
+    url,
+    title,
+    techs,
+    likes: repositories[repositoryIndex].likes,
+  }
+  repositories[repositoryIndex] = modifiedRepo;
+
+  return response.status(200).json(modifiedRepo);
 });
 
-app.delete("/repositories/:id", (req, res) => {
-  // TODO
+app.delete("/repositories/:id", (request, response) => {
+  const { id } = request.params;
+  
+  if (!isUuid(id)) {
+    return response.status(400).json({ error: `Requested id is not a valid id!` });
+  }
+
+  const repositoryIndex = repositories.findIndex(repo => repo.id === id);
+
+  if (repositoryIndex < 0) {
+    return response.status(400).json({ error: `There is no repository with id : ${id}` });
+  }
+
+  repositories.splice(repositoryIndex, 1);
+  return response.status(204).send();
 });
 
 app.post("/repositories/:id/like", (request, response) => {
-  // TODO
+  const { id } = request.params;
+
+  if (!isUuid(id)) {
+    return response.status(400).json({ error: `Requested id is not a valid id!` });
+  }
+
+  const repositoryIndex = repositories.findIndex(repo => repo.id === id);
+
+  if (repositoryIndex < 0) {
+    return response.status(400).json({ error: `There is no repository with id : ${id}` });
+  }
+
+  repositories[repositoryIndex].likes += 1;
+  
+  return response.status(200).json(repositories[repositoryIndex])
+
 });
 
 app.get("/log", returnLog);
