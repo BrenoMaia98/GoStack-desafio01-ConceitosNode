@@ -4,6 +4,9 @@
   Desafio 01 - Conceitos Node.js
 </h2>
 
+## Especificações
+  Uma aplicação servidor, na qual é feito registros de repositórios pertencentes a um portifólio. Foco principal deste repositório é aplicar os conceitos básicos de node.js.
+
 ## Framework
 - [Expressjs](https://expressjs.com/pt-br/)
 
@@ -11,8 +14,6 @@
  - [Uuidv4](https://github.com/thenativeweb/uuidv4)
  - [fs (File System, node.js)](https://nodejs.org/api/fs.html)
  
-## Especificações
-  Uma aplicação que terá como foco o armazenamento de repositórios de um portifólio, para tal foram utilizados os conceitos básicos de node.js.
   
   ### Operações obrigatórias do desafio (repositórios)
    - Criação
